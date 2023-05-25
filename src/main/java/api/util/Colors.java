@@ -1,2 +1,6 @@
-package api.util;public class Colors {
+package api.util;
+
+public enum Colors {
+    BLACK,
+    GRAY
 }

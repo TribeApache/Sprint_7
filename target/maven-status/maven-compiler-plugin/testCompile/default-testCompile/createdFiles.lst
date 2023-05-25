@@ -1,3 +1,4 @@
-CourierAuthorizationTest.class
-CreateOrderTest.class
-CourierCreateTest.class
+tests\order\CreateOrderTest.class
+tests\order\GetListOfOrdersTest.class
+tests\courier\CourierLoginTest.class
+tests\courier\CreateCourierTest.class

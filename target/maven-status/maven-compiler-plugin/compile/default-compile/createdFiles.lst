@@ -1,7 +1,7 @@
-data\DataCourier.class
-data\LoginCourierResponseBody.class
-api\CourierLogin.class
-api\CreateOrders.class
-api\CourierCreate.class
-data\DataSerialization.class
-data\LoginCourierRequestBody.class
+api\client\CourierClient.class
+api\model\PageInfo.class
+api\model\Courier.class
+api\model\ListOfOrders.class
+api\util\Colors.class
+api\model\AvailableStation.class
+api\model\Order.class
