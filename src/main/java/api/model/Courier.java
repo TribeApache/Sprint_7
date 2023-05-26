@@ -5,6 +5,7 @@ public class Courier {
     private String login;
     private String password;
     private String firstName;
+    private String id; // добавлено поле id
 
     public Courier(String login, String password, String firstName) {
         this.login = login;
@@ -12,7 +13,7 @@ public class Courier {
         this.firstName = firstName;
     }
 
-    public Courier(){
+    public Courier() {
 
     }
 
@@ -38,5 +39,13 @@ public class Courier {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

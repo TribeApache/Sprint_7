@@ -8,6 +8,8 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.hamcrest.Matchers;
+import org.apache.http.HttpStatus;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,9 +17,20 @@ import static io.restassured.RestAssured.given;
 
 public class CreateCourierTest {
 
+    private Courier createdCourier; // добавлено поле для хранения созданного курьера
+
     @Before
     public void setUp() {
         RestAssured.baseURI = "http://qa-scooter.praktikum-services.ru";
+    }
+
+    @After
+    public void tearDown() {
+        if (createdCourier != null) {
+            // Удаление созданного курьера
+            CourierClient clientStep = new CourierClient();
+            clientStep.deleteCourier(createdCourier);
+        }
     }
 
     @Test
@@ -31,9 +44,13 @@ public class CreateCourierTest {
         Courier courier = new Courier(login, password, firstName);
         Response response = clientStep.sendPostRequestApiV1Courier(courier);
         response.then().log().all()
-                .assertThat().body("ok", Matchers.is(true)).and().statusCode(201);
+                .assertThat().body("ok", Matchers.is(true)).and().statusCode(HttpStatus.SC_CREATED);
 
+        // Сохранение созданного курьера
+        createdCourier = response.getBody().as(Courier.class);
     }
+
+
 
     @Test
     @DisplayName("Создайте двух одинаковых курьеров.")
@@ -47,8 +64,9 @@ public class CreateCourierTest {
         clientStep.sendPostRequestApiV1Courier(courier);
         Response response = clientStep.sendPostRequestApiV1Courier(courier);
         response.then().log().all()
-                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(409);
+                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(HttpStatus.SC_CONFLICT);
     }
+
 
     @Test
     @DisplayName("Создайте двух курьеров с одинаковыми логинами.")
@@ -66,7 +84,7 @@ public class CreateCourierTest {
         courier.setPassword("abracadabra");
         Response response = clientStep.sendPostRequestApiV1Courier(courier);
         response.then().log().all()
-                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(409);
+                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(HttpStatus.SC_CONFLICT);
     }
 
     @Test
@@ -79,7 +97,7 @@ public class CreateCourierTest {
         courier.setFirstName(firstName);
         Response response = clientStep.sendPostRequestApiV1Courier(courier);
         response.then().log().all()
-                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(400);
+                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
     @Test
@@ -92,7 +110,7 @@ public class CreateCourierTest {
         courier.setPassword(password);
         Response response = clientStep.sendPostRequestApiV1Courier(courier);
         response.then().log().all()
-                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(400);
+                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
     @Test
@@ -105,7 +123,7 @@ public class CreateCourierTest {
         courier.setLogin(login);
         Response response = clientStep.sendPostRequestApiV1Courier(courier);
         response.then().log().all()
-                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(400);
+                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
     @Test
@@ -120,7 +138,7 @@ public class CreateCourierTest {
         courier.setFirstName(firstName);
         Response response = clientStep.sendPostRequestApiV1Courier(courier);
         response.then().log().all()
-                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(400);
+                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
     @Test
@@ -135,7 +153,7 @@ public class CreateCourierTest {
         courier.setPassword(password);
         Response response = clientStep.sendPostRequestApiV1Courier(courier);
         response.then().log().all()
-                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(400);
+                .assertThat().body("message", Matchers.notNullValue()).and().statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
 }

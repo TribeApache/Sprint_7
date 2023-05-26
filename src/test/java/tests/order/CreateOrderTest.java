@@ -1,5 +1,6 @@
 package tests.order;
 
+import api.client.OrderClient;
 import api.model.Order;
 import api.util.Colors;
 import io.qameta.allure.Description;
@@ -21,6 +22,7 @@ import static io.restassured.RestAssured.given;
 @RunWith(Parameterized.class)
 public class CreateOrderTest {
     private Order order;
+    private OrderClient orderClient;
 
     public CreateOrderTest(Order order){
         this.order = order;
@@ -30,6 +32,7 @@ public class CreateOrderTest {
     public void setUp() {
         RestAssured.baseURI = "http://qa-scooter.praktikum-services.ru";
         RestAssured.filters(new AllureRestAssured());
+        orderClient = new OrderClient();
     }
 
     @Parameterized.Parameters(name="Тестовые данные: {0}")
@@ -54,11 +57,7 @@ public class CreateOrderTest {
     @DisplayName("Создайте тест заказа.")
     @Description("Успешное создание заказа с различными параметрами.")
     public void createOrderTest(){
-        Response response = given().log().all()
-                .header("Content-type", "application/json")
-                .body(order)
-                .when()
-                .post("/api/v1/orders");
+        Response response = orderClient.sendPostRequestApiV1Orders(order);
         response.then().log().all()
                 .assertThat().body("track", Matchers.notNullValue()).and().statusCode(201);
     }
