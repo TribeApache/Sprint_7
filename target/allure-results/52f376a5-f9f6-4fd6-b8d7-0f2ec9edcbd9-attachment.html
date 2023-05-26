@@ -1,0 +1,50 @@
+<div>POST to http://qa-scooter.praktikum-services.ru/api/v1/orders</div>
+
+<h4>Body</h4>
+<div>
+    <pre class="preformated-text">
+{
+    &quot;id&quot;: 0,
+    &quot;firstName&quot;: &quot;Vladimir&quot;,
+    &quot;lastName&quot;: &quot;Vladimirovich&quot;,
+    &quot;address&quot;: &quot;Sochi&quot;,
+    &quot;metroStation&quot;: &quot;1&quot;,
+    &quot;phone&quot;: &quot;+7-123-456-78-90&quot;,
+    &quot;deliveryDate&quot;: &quot;2014-02-28&quot;,
+    &quot;track&quot;: 0,
+    &quot;comment&quot;: &quot;RU-SSI-A!&quot;,
+    &quot;color&quot;: [
+        
+    ],
+    &quot;status&quot;: 0,
+    &quot;rentTime&quot;: 8
+}    </pre>
+</div>
+
+<h4>Headers</h4>
+<div>
+        <div>Accept: */*</div>
+        <div>Content-Type: application/json</div>
+</div>
+
+
+
+<h4>Curl</h4>
+<div>
+curl -v -X POST &#39;http://qa-scooter.praktikum-services.ru/api/v1/orders&#39; -H &#39;Accept: */*&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;id&quot;: 0,
+    &quot;firstName&quot;: &quot;Vladimir&quot;,
+    &quot;lastName&quot;: &quot;Vladimirovich&quot;,
+    &quot;address&quot;: &quot;Sochi&quot;,
+    &quot;metroStation&quot;: &quot;1&quot;,
+    &quot;phone&quot;: &quot;+7-123-456-78-90&quot;,
+    &quot;deliveryDate&quot;: &quot;2014-02-28&quot;,
+    &quot;track&quot;: 0,
+    &quot;comment&quot;: &quot;RU-SSI-A!&quot;,
+    &quot;color&quot;: [
+        
+    ],
+    &quot;status&quot;: 0,
+    &quot;rentTime&quot;: 8
+}&#39;
+</div>
